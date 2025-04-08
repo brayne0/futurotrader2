@@ -310,117 +310,110 @@
         </div>
       </section>
 
-      <!-- SECCIÓN DE PLANES DE SUSCRIPCIÓN -->
-      <section class="pricing-section">
-        <div class="section-box">
-          <div class="container">
-            <p class="main-title text-center">PLANES DE SUSCRIPCIÓN</p>
-            <div class="button-selector text-center">
-              <a href="#" id="basic-btn" class="account-select button-selected"
-                >BÁSICO</a
-              >
-              <a href="#" id="pro-btn" class="account-select">PRO</a>
-              <a href="#" id="vip-btn" class="account-select">VIP</a>
-            </div>
-            <div class="table-container">
-              <div class="table-wrapper">
-                <table class="pricing-table" id="basic-table">
-                  <tr>
-                    <th colspan="4">Plan BÁSICO</th>
-                  </tr>
-                  <tr>
-                    <td>Precio</td>
-                    <td colspan="3">$29/mes</td>
-                  </tr>
-                  <tr>
-                    <td>Operaciones automáticas</td>
-                    <td colspan="3">Sí</td>
-                  </tr>
-                  <tr>
-                    <td>Alertas en tiempo real</td>
-                    <td colspan="3">No</td>
-                  </tr>
-                  <tr>
-                    <td>Soporte</td>
-                    <td colspan="3">Email</td>
-                  </tr>
-                  <tr>
-                    <td colspan="4">
-                      <a href="registro.html" class="link-style2"
-                        >Suscribirse</a
-                      >
-                    </td>
-                  </tr>
-                </table>
-                <table
-                  class="pricing-table"
-                  id="pro-table"
-                  style="display: none"
-                >
-                  <tr>
-                    <th colspan="4">Plan PRO</th>
-                  </tr>
-                  <tr>
-                    <td>Precio</td>
-                    <td colspan="3">$59/mes</td>
-                  </tr>
-                  <tr>
-                    <td>Operaciones automáticas</td>
-                    <td colspan="3">Sí</td>
-                  </tr>
-                  <tr>
-                    <td>Alertas en tiempo real</td>
-                    <td colspan="3">Sí</td>
-                  </tr>
-                  <tr>
-                    <td>Soporte</td>
-                    <td colspan="3">Chat en vivo</td>
-                  </tr>
-                  <tr>
-                    <td colspan="4">
-                      <a href="{% url 'registro' %}" class="link-style2"
-                        >Suscribirse</a
-                      >
-                    </td>
-                  </tr>
-                </table>
-                <table
-                  class="pricing-table"
-                  id="vip-table"
-                  style="display: none"
-                >
-                  <tr>
-                    <th colspan="4">Plan VIP</th>
-                  </tr>
-                  <tr>
-                    <td>Precio</td>
-                    <td colspan="3">$99/mes</td>
-                  </tr>
-                  <tr>
-                    <td>Operaciones automáticas</td>
-                    <td colspan="3">Sí</td>
-                  </tr>
-                  <tr>
-                    <td>Alertas en tiempo real</td>
-                    <td colspan="3">Sí</td>
-                  </tr>
-                  <tr>
-                    <td>Soporte</td>
-                    <td colspan="3">24/7</td>
-                  </tr>
-                  <tr>
-                    <td colspan="4">
-                      <a href="{% url 'registro' %}" class="link-style2"
-                        >Suscribirse</a
-                      >
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
+    <!-- SECCIÓN DE PLANES DE SUSCRIPCIÓN -->
+<section class="pricing-section">
+  <div class="section-box">
+    <div class="container">
+      <p class="main-title text-center">PLANES DE SUSCRIPCIÓN</p>
+      <div class="button-selector text-center">
+        <a href="#" id="basic-btn" class="account-select button-selected">BÁSICO</a>
+        <a href="#" id="pro-btn" class="account-select">PRO</a>
+        <a href="#" id="vip-btn" class="account-select">VIP</a>
+      </div>
+      <div class="table-container">
+        <div class="table-wrapper">
+          <!-- Plan Básico -->
+          <table class="pricing-table" id="basic-table">
+            <tr>
+              <th colspan="4">Plan BÁSICO</th>
+            </tr>
+            <tr>
+              <td>Precio</td>
+              <td colspan="3">$29/mes</td>
+            </tr>
+            <tr>
+              <td>Operaciones automáticas</td>
+              <td colspan="3">Sí</td>
+            </tr>
+            <tr>
+              <td>Alertas en tiempo real</td>
+              <td colspan="3">No</td>
+            </tr>
+            <tr>
+              <td>Soporte</td>
+              <td colspan="3">Email</td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <!-- Redirige al área de Pagos con el parámetro plan=basic usando el tag url -->
+                <a href="{% url 'pagos' %}?plan=basic" class="link-style2">Suscribirse</a>
+              </td>
+            </tr>
+          </table>
+          <!-- Plan Pro -->
+          <table class="pricing-table" id="pro-table" style="display: none">
+            <tr>
+              <th colspan="4">Plan PRO</th>
+            </tr>
+            <tr>
+              <td>Precio</td>
+              <td colspan="3">$59/mes</td>
+            </tr>
+            <tr>
+              <td>Operaciones automáticas</td>
+              <td colspan="3">Sí</td>
+            </tr>
+            <tr>
+              <td>Alertas en tiempo real</td>
+              <td colspan="3">Sí</td>
+            </tr>
+            <tr>
+              <td>Soporte</td>
+              <td colspan="3">Chat en vivo</td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <!-- Redirige al área de Pagos con el parámetro plan=pro -->
+                <a href="{% url 'pagos' %}?plan=pro" class="link-style2">Suscribirse</a>
+              </td>
+            </tr>
+          </table>
+          <!-- Plan VIP -->
+          <table class="pricing-table" id="vip-table" style="display: none">
+            <tr>
+              <th colspan="4">Plan VIP</th>
+            </tr>
+            <tr>
+              <td>Precio</td>
+              <td colspan="3">$99/mes</td>
+            </tr>
+            <tr>
+              <td>Operaciones automáticas</td>
+              <td colspan="3">Sí</td>
+            </tr>
+            <tr>
+              <td>Alertas en tiempo real</td>
+              <td colspan="3">Sí</td>
+            </tr>
+            <tr>
+              <td>Soporte</td>
+              <td colspan="3">24/7</td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <!-- Redirige al área de Pagos con el parámetro plan=vip -->
+                <a href="{% url 'pagos' %}?plan=vip" class="link-style2">Suscribirse</a>
+              </td>
+            </tr>
+          </table>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 
       <!-- SECCIÓN DE VENTAJAS -->
       <section class="advantages-section">

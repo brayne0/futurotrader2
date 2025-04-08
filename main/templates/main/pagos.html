@@ -108,6 +108,17 @@
       <div class="container">
         <h2 class="text-center mb-4">Configuración de Cuenta</h2>
         <form>
+
+          <div class="mb-3">
+            <label for="planSelect" class="form-label"
+              >Plan de suscripcion</label
+            >
+            <select class="form-select" id="planSelect">
+              <option value="basic">basico $29</option>
+              <option value="pro">pro $59</option>
+              <option value="vip">vip $99</option>
+            </select>
+          </div>
           <!-- Tipo de Estrategia -->
           <div class="mb-3">
             <label for="strategySelect" class="form-label"
@@ -333,5 +344,6 @@
       paypalOption.addEventListener("change", togglePaymentFields);
       cardOption.addEventListener("change", togglePaymentFields);
     </script>
+    
   </body>
 </html>
