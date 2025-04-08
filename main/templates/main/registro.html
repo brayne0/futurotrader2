@@ -1,0 +1,403 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>FuturoTrader - Registro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS (CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome (CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+<!-- CSS de intl-tel-input -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+    <!-- Tu CSS personalizado -->
+    <link rel="stylesheet" href="../../static/main/parte-css.css" />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img
+            src="{% static 'main/img/logo.jpg' %}"
+            alt="FuturoTrader Logo"
+            class="logo rounded-circle"
+            style="height: 50px"
+          />
+        </a>
+        <div class="d-flex justify-content-center align-items-center">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="mainMenu">
+            <li class="nav-item">
+              <a
+                href="{% url 'index' %}#header-section"
+                class="nav-link menu-link"
+                >Inicio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                href="{% url 'index' %}#features-section"
+                class="nav-link menu-link"
+                >Características</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                href="{% url 'index' %}#about-section"
+                class="nav-link menu-link"
+                >Nosotros</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'index' %}#faq-section" class="nav-link menu-link"
+                >FAQ</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'contacto' %}" class="nav-link">Contacto</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="{% url 'pagos' %}" class="nav-link">Pagos</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'retiros' %}" class="nav-link">Retiros</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'registro' %}" class="nav-link">Registro</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link">Iniciar Sesión</a>
+            </li>
+            {% endif %}
+          </ul>
+
+          {% if user.is_authenticated %}
+          <span class="me-3 fw-bold">Hola, {{ user.first_name }}</span>
+          <!-- 'Área de Clientes' solo se muestra si está logueado -->
+          <a href="{% url 'area_cliente' %}" class="link-style1"
+            >Área de Cliente</a
+          >
+          <a href="{% url 'logout' %}" class="link-style1">Cerrar sesión</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    <div class="navbar-separator"></div>
+
+    <!-- SECCIÓN DE REGISTRO (ejemplo) -->
+    <section class="pt-5 pb-5" style="margin-top: 60px">
+      <div class="container">
+        <h2 class="text-center mb-4">Registro</h2>
+
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+        {% endfor %} {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <!-- Nombre -->
+          <div class="mb-3">
+            <label for="firstName" class="form-label">Nombre(s)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              name="firstName"
+              required
+              autocomplete="given-name"
+            />
+          </div>
+
+          <!-- Apellido -->
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Apellido(s)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              name="lastName"
+              required
+              autocomplete="family-name"
+            />
+          </div>
+
+          <!-- Nombre de usuario -->
+          <div class="mb-3">
+            <label for="username" class="form-label">Nombre de Usuario</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              required
+              autocomplete="username"
+            />
+          </div>
+
+          <!-- Cédula -->
+          <div class="mb-3">
+            <label for="idNumber" class="form-label">Cédula</label>
+            <input
+              type="text"
+              class="form-control"
+              id="idNumber"
+              name="idNumber"
+              required
+            />
+          </div>
+
+          <!-- Fotos de cédula -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="idFront" class="form-label">Foto Anverso (ID)</label>
+              <input
+                type="file"
+                class="form-control"
+                id="idFront"
+                name="idFront"
+                accept="image/*"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="idBack" class="form-label">Foto Reverso (ID)</label>
+              <input
+                type="file"
+                class="form-control"
+                id="idBack"
+                name="idBack"
+                accept="image/*"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Dirección -->
+          <div class="mb-3">
+            <label for="address1" class="form-label">Dirección (Línea 1)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address1"
+              name="address1"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="address2" class="form-label">Dirección (Línea 2)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address2"
+              name="address2"
+              placeholder="Opcional"
+            />
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="postalCode" class="form-label">Código Postal</label>
+              <input
+                type="text"
+                class="form-control"
+                id="postalCode"
+                name="postalCode"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="city" class="form-label">Ciudad</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                name="city"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="province" class="form-label">Provincia/Estado</label>
+              <input
+                type="text"
+                class="form-control"
+                id="province"
+                name="province"
+                required
+              />
+            </div>
+          </div>
+
+    <!-- Campo para seleccionar País -->
+<div class="mb-3">
+  <label for="countrySelect" class="form-label">País</label>
+  <select id="countrySelect" name="country" class="form-control" required>
+    <!-- Las opciones se generarán dinámicamente -->
+  </select>
+</div>
+
+
+
+<!-- Campo de Teléfono -->
+<div class="mb-3">
+  <label for="phone" class="form-label">Número de Teléfono</label>
+  <input type="tel" class="form-control" id="phone" name="phone" required>
+</div>
+
+</div>
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            />
+          </div>
+
+          <!-- Contraseña -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+              minlength="8"
+            />
+          </div>
+
+          <!-- Confirmar contraseña -->
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label"
+              >Repetir Contraseña</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+              minlength="8"
+            />
+          </div>
+
+          <!-- Botón -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Registrar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-section">
+      <div class="container text-center">
+        <hr style="border-color: #444" />
+        <p>FuturoTrader © 2025 - Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% load static %}
+    <script src="{% static 'main/parte-js.js' %}"></script>
+    <!-- Bootstrap JS (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JS de intl-tel-input -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+
+<!-- Tu JS personalizado, por ejemplo, parte-js.js -->
+<script src="{% static 'main/parte-js.js' %}"></script>
+
+<!-- Código para inicializar intl-tel-input -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const phoneInputField = document.querySelector("#phone");
+    // Inicializa intl-tel-input en el campo de teléfono
+    window.intlTelInput(phoneInputField, {
+      initialCountry: "auto",
+      geoIpLookup: function(success, failure) {
+        fetch("https://ipinfo.io/json?token=TU_TOKEN_AQUI")
+          .then((resp) => resp.json())
+          .then((resp) => success(resp.country))
+          .catch(() => success("US"));
+      },
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+  });
+</script>
+<!-- Al final de tu archivo HTML, antes de </body> -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var countrySelect = document.getElementById("countrySelect");
+    if (countrySelect) {
+      var countries = [
+        "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", 
+        "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", 
+        "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", 
+        "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Côte d'Ivoire", "Cabo Verde", "Cambodia", 
+        "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", 
+        "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)", 
+        "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", 
+        "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini (fmr. Swaziland)", "Ethiopia", 
+        "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", 
+        "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Holy See", "Honduras", "Hungary", "Iceland", 
+        "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", 
+        "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", 
+        "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", 
+        "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", 
+        "Montenegro", "Morocco", "Mozambique", "Myanmar (formerly Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", 
+        "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", 
+        "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", 
+        "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", 
+        "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", 
+        "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", 
+        "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", 
+        "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", 
+        "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", 
+        "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+      ];
+      
+      // Vaciar el select (si tuviera contenido previo) e incluir una opción por defecto
+      countrySelect.innerHTML = "<option value=''>Selecciona tu país</option>";
+      
+      // Recorrer la lista de países y crear las opciones correspondientes
+      countries.forEach(function(country) {
+        var opt = document.createElement("option");
+        opt.value = country;
+        opt.innerHTML = country;
+        countrySelect.appendChild(opt);
+      });
+    }
+  });
+</script>
+
+  </body>
+</html>

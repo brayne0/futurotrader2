@@ -1,0 +1,389 @@
+/* ============================================================
+   RESET Y CONFIGURACIÓN BASE
+============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #f7f7f7;
+  line-height: 1.6;
+}
+
+.container-sm {
+  margin-top: 200px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 999;
+}
+
+.navbar .navbar-brand img {
+  max-height: 50px;
+}
+
+.navbar .nav-link {
+  color: #333;
+  font-weight: 500;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #007bff;
+}
+
+/* Botones (link-style1, link-style2) */
+.link-style1,
+.link-style2 {
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.link-style1 {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.link-style2 {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.link-style1:hover {
+  background-color: #5a6268;
+}
+
+.link-style2:hover {
+  background-color: #0056b3;
+}
+
+/* HEADER SECTION con el fondo gris y texto animado */
+.header-section {
+  position: relative;
+  text-align: center;
+  padding: 100px 20px 60px;
+  color: #fff;
+  overflow: hidden;
+  background-color: var(--header-bg);
+  background: linear-gradient(135deg, #1d1f20, #434343); /* degrade */
+}
+
+.moving-text-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 2;
+  background-color: #444;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 20px
+  );
+}
+.moving-text-bg::before {
+  content: "FUTUROTRADER FUTUROTRADER FUTUROTRADER FUTUROTRADER ";
+  position: absolute;
+  top: 50%;
+  left: -100%;
+  font-size: 6em;
+  color: rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+  animation: moveBgText 15s linear infinite;
+}
+@keyframes moveBgText {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.header-section .main-title {
+  font-size: 2.4em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  z-index: 2;
+  position: relative;
+}
+.alternative-img {
+  max-width: 400px;
+  margin: 20px 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Contenedor para el header (texto y widget) */
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Texto Slider */
+.text-slider {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.text-slider h3 {
+  display: inline-block;
+  padding: 0 40px;
+  font-size: 1.6em;
+  animation: slide 20s linear infinite;
+  color: #fff;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.bottom-buttons a {
+  display: inline-block;
+  margin: 10px 8px;
+}
+
+/* SECCIÓN BOX para simular el estilo PDF "web copia" */
+.section-box {
+  background-color: #fff;
+  padding: 40px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* FEATURES */
+.features-section {
+  padding: 40px 20px;
+}
+.faded-box {
+  background-color: rgba(0, 123, 255, 0.1);
+  margin: 15px;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 1.1em;
+}
+
+/* PROCESS */
+.process-section {
+  padding: 60px 20px;
+  background-color: #f0f0f0;
+}
+.faded-slide {
+  background-color: #fff;
+  margin: 20px auto;
+  padding: 25px;
+  max-width: 350px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.slide-number {
+  font-size: 2em;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 8px;
+}
+.slide-header p {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.blue-line {
+  width: 50px;
+  height: 4px;
+  background-color: #007bff;
+  margin-top: 15px;
+}
+
+/* PRICING */
+.pricing-section {
+  padding: 60px 20px;
+}
+.button-selector a {
+  margin: 5px;
+  padding: 10px 15px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  color: #007bff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.button-selector a.button-selected {
+  background-color: #007bff;
+  color: #fff;
+}
+.table-container {
+  margin-top: 20px;
+}
+.pricing-table {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+.pricing-table th,
+.pricing-table td {
+  border: 1px solid #e0e0e0;
+  text-align: center;
+  padding: 15px;
+}
+.pricing-table th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* ADVANTAGES */
+.advantages-section {
+  padding: 60px 20px;
+  background-color: #f8f8f8;
+}
+.faded-slide2 {
+  background-color: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.faded-slide2 .slide-number i {
+  font-size: 2em;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+.faded-slide2 .slide-text span {
+  font-weight: bold;
+}
+
+/* TESTIMONIALS */
+.testimonials-section {
+  padding: 60px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+.testimonial-slide {
+  display: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.testimonial-slide .slide-stars i {
+  color: #ffd700;
+  margin: 2px;
+}
+
+/* FAQ */
+.faq-section {
+  padding: 60px 20px;
+  background-color: #f8f8f8;
+}
+.faq-box {
+  background-color: #fff;
+  margin: 15px auto;
+  padding: 15px;
+  max-width: 800px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.faq-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.faq-title p {
+  margin: 0;
+}
+
+.faq-text {
+  display: none;
+  padding-top: 10px;
+}
+
+.faq-text p {
+  margin: 16px 0 0 0;
+}
+/* NEWSLETTER, FOREX FACTORY, ETC. */
+.newsletter-section {
+  padding: 60px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+/* FOOTER */
+
+.footer-section {
+  background-color: #222;
+  height: 100px;
+  color: #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-section p {
+  margin: 0;
+}
+
+.footer-section a {
+  color: #ccc;
+  text-decoration: none;
+}
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+/* Contacto */
+.body-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .header-section .main-title {
+    font-size: 1.8em;
+  }
+  .pricing-table th,
+  .pricing-table td {
+    font-size: 0.9em;
+  }
+}

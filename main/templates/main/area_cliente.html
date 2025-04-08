@@ -1,0 +1,270 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>FuturoTrader - Área del Cliente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <!-- FontAwesome (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <!-- Tu CSS personalizado -->
+    <link rel="stylesheet" href="{% static 'main/parte-css.css' %}" />
+  </head>
+  <body>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-info mt-3 text-center">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-light shadow-sm">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'main/img/logo.jpg' %}" alt="FuturoTrader Logo" class="logo rounded-circle" style="height: 50px" />
+        </a>
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="mainMenu">
+            <li class="nav-item">
+              <a href="{% url 'index' %}#header-section" class="nav-link">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'index' %}#features-section" class="nav-link">Características</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'index' %}#about-section" class="nav-link">Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'index' %}#faq-section" class="nav-link">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'contacto' %}" class="nav-link">Contacto</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="{% url 'pagos' %}" class="nav-link">Pagos</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'retiros' %}" class="nav-link">Retiros</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'registro' %}" class="nav-link">Registro</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link">Iniciar Sesión</a>
+            </li>
+            {% endif %}
+          </ul>
+
+          {% if user.is_authenticated %}
+          <span class="me-3 fw-bold">Hola, {{ user.first_name }}</span>
+          <a href="{% url 'area_cliente' %}" class="link-style1">Área de Cliente</a>
+          <a href="{% url 'logout' %}" class="link-style1">Cerrar sesión</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="container-sm container-fluid mt-5 pt-5">
+      <!-- Información del usuario -->
+      <div class="card p-4 shadow mb-4">
+        <h4 class="mb-3">Información personal</h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Nombre:</strong> {{ user.first_name }}</li>
+          <li class="list-group-item"><strong>Apellido:</strong> {{ user.last_name }}</li>
+          <li class="list-group-item"><strong>Nombre de usuario:</strong> {{ user.username }}</li>
+          <li class="list-group-item"><strong>Correo electrónico:</strong> {{ user.email }}</li>
+        </ul>
+      </div>
+
+      <!-- Datos del perfil -->
+      <div class="card p-4 shadow mb-5">
+        <h4 class="mb-3">Datos del perfil</h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Cédula:</strong> {{ profile.id_number }}</li>
+          <li class="list-group-item">
+            <strong>Dirección:</strong>
+            {{ profile.address1 }}<br />
+            <small class="text-muted">Línea 2: {{ profile.address2 }}</small>
+          </li>
+          <li class="list-group-item"><strong>Ciudad:</strong> {{ profile.city }}</li>
+          <li class="list-group-item"><strong>Provincia/Estado:</strong> {{ profile.province }}</li>
+          <li class="list-group-item"><strong>País:</strong> {{ profile.country }}</li>
+          <li class="list-group-item"><strong>Código Postal:</strong> {{ profile.postal_code }}</li>
+          <li class="list-group-item"><strong>Teléfono:</strong> {{ profile.phone }}</li>
+          <li class="list-group-item">
+            <strong>Foto ID (Anverso):</strong><br />
+            {% if profile.id_front %}
+              <img src="{{ profile.id_front.url }}" class="img-fluid mt-2" style="max-height: 200px" />
+            {% else %}
+              <p class="text-muted">No se ha subido imagen.</p>
+            {% endif %}
+          </li>
+          <li class="list-group-item">
+            <strong>Foto ID (Reverso):</strong><br />
+            {% if profile.id_back %}
+              <img src="{{ profile.id_back.url }}" class="img-fluid mt-2" style="max-height: 200px" />
+            {% else %}
+              <p class="text-muted">No se ha subido imagen.</p>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+
+      <!-- NUEVA SECCIÓN: INFORME DE SALIDAS -->
+      <section class="informe-salidas mt-5">
+        <div class="card p-4 shadow mb-4">
+          <h4 class="mb-3">Informe de Salidas - Bot de Trading</h4>
+          <p><strong>Fecha de generación:</strong> {{ report.generation_date }}</p>
+          <p><strong>Periodo analizado:</strong> {{ report.period }}</p>
+          <p><strong>Par de divisas operado:</strong> {{ report.currency_pair }}</p>
+          <p><strong>Total de operaciones analizadas:</strong> {{ report.total_operations }}</p>
+          <p><strong>Porcentaje de operaciones ganadoras:</strong> {{ report.win_percentage }}%</p>
+          <hr>
+          <h5>Resumen de Entradas</h5>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Fecha y Hora</th>
+                <th>Tipo de Operación</th>
+                <th>Par de Divisas</th>
+                <th>Precio de Entrada</th>
+                <th>Stop Loss</th>
+                <th>Take Profit</th>
+                <th>Volumen</th>
+                <th>Duración</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for entry in report.entries %}
+              <tr>
+                <td>{{ entry.datetime }}</td>
+                <td>{{ entry.operation_type }}</td>
+                <td>{{ entry.currency_pair }}</td>
+                <td>{{ entry.entry_price }}</td>
+                <td>{{ entry.stop_loss }}</td>
+                <td>{{ entry.take_profit }}</td>
+                <td>{{ entry.volume }}</td>
+                <td>{{ entry.duration }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <hr>
+          <h5>Resumen de Operaciones</h5>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Fecha y Hora</th>
+                <th>Tipo</th>
+                <th>Par de Divisas</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+                <th>Pips</th>
+                <th>Resultado ($)</th>
+                <th>Duración</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for operation in report.operations %}
+              <tr>
+                <td>{{ operation.datetime }}</td>
+                <td>{{ operation.type }}</td>
+                <td>{{ operation.currency_pair }}</td>
+                <td>{{ operation.entry }}</td>
+                <td>{{ operation.exit }}</td>
+                <td>{{ operation.pips }}</td>
+                <td>{{ operation.result }}</td>
+                <td>{{ operation.duration }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <hr>
+          <h5>Reporte de Usuarios - Backend</h5>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Fecha de Registro</th>
+                <th>Última Conexión</th>
+                <th>Operaciones hoy</th>
+                <th>Balance Actual</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user_rep in report.user_report %}
+              <tr>
+                <td>{{ user_rep.code }}</td>
+                <td>{{ user_rep.username }}</td>
+                <td>{{ user_rep.name }}</td>
+                <td>{{ user_rep.email }}</td>
+                <td>{{ user_rep.role }}</td>
+                <td>{{ user_rep.status }}</td>
+                <td>{{ user_rep.register_date }}</td>
+                <td>{{ user_rep.last_connection }}</td>
+                <td>{{ user_rep.operations_today }}</td>
+                <td>{{ user_rep.current_balance }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <hr>
+          <h5>Detalles del Sistema - Backend</h5>
+          <ul>
+            <li><strong>ID del Servidor:</strong> {{ report.server_id }}</li>
+            <li><strong>Versión del Sistema:</strong> {{ report.system_version }}</li>
+            <li><strong>Tiempo en Línea:</strong> {{ report.uptime }}</li>
+            <li><strong>Última Actualización:</strong> {{ report.last_update }}</li>
+            <li><strong>Uso de CPU:</strong> {{ report.cpu_usage }}%</li>
+            <li><strong>Uso de Memoria:</strong> {{ report.memory_usage }}</li>
+            <li><strong>Eventos de Error:</strong> {{ report.error_events }}</li>
+          </ul>
+          <hr>
+          <h5>Análisis del Mercado</h5>
+          <p><strong>Bloques de órdenes:</strong> {{ report.order_blocks }}</p>
+          <p><strong>Dirección del mercado:</strong> {{ report.market_direction }}</p>
+          <p><strong>Factores considerados:</strong> {{ report.considered_factors }}</p>
+          <hr>
+          <h5>Conclusiones y Recomendaciones</h5>
+          <p><strong>Puntos fuertes:</strong> {{ report.strong_points }}</p>
+          <p><strong>Puntos a mejorar:</strong> {{ report.improve_points }}</p>
+          <p><strong>Recomendaciones:</strong> {{ report.recommendations }}</p>
+          <hr>
+          <h5>Resumen Final de Operaciones</h5>
+          <p>
+            <strong>Total de Operaciones:</strong> {{ report.total_final_operations }}<br>
+            <strong>Resultado Final:</strong> {{ report.final_result }} $<br>
+            <strong>Duración Total:</strong> {{ report.total_duration }}
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-section">
+      <div class="container text-center">
+        <hr style="border-color: #444;">
+        <p>FuturoTrader © 2025 - Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
